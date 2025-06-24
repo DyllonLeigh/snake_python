@@ -8,8 +8,6 @@ SOUTH = 270
 MOVE_DISTANCE = 20
 
 move_complete = False
-# x = 0
-# y = 0
 
 class Snake:
     def __init__(self):
@@ -33,9 +31,7 @@ class Snake:
         self.add_segment(self.segments[-1].position())
 
     def move(self):
-        global move_complete #, x, y
-        # x = self.segments[len(self.segments) - 1].xcor()
-        # y = self.segments[len(self.segments) - 1].ycor()
+        global move_complete
         for seg_num in range(len(self.segments) - 1, 0, -1):
             new_x = self.segments[seg_num - 1].xcor()
             new_y = self.segments[seg_num - 1].ycor()
