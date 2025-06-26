@@ -1,3 +1,4 @@
+from logging import exception
 from turtle import Turtle
 
 ALIGNMENT = "center"
@@ -12,8 +13,13 @@ class Scoreboard(Turtle):
         self.penup()
         self.goto(0, 270)
         self.score = -1
-        with open("high_score.txt") as file:
-            self.high_score = int(file.read())
+        try:
+            with open("data.txt") as file:
+                self.high_score = int(file.read())
+        except FileNotFoundError:
+            with open("data.txt",mode="w") as file:
+                self.high_score = 0
+                file.write(str(self.high_score))
         self.update_score()
 
     def update_score(self):
@@ -24,16 +30,7 @@ class Scoreboard(Turtle):
     def reset_score(self):
         if self.score > self.high_score:
             self.high_score = self.score
-            with open("high_score.txt",mode="w") as file:
+            with open("data.txt",mode="w") as file:
                 file.write(str(self.high_score))
         self.score = -1
         self.update_score()
-
-    # def game_over(self):
-    #     self.clear()
-    #     self.goto(0,15)
-    #     self.color("red")
-    #     self.write("GAME OVER", align=ALIGNMENT, font=FONT2)
-    #     self.goto(0,-15)
-    #     self.color("white")
-    #     self.write(f"Final Score: {self.score}", align=ALIGNMENT, font=FONT)
