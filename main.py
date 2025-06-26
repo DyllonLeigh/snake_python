@@ -26,17 +26,16 @@ while game_is_on:
 
     snake.move()
 
+    if snake.head.xcor() > 280 or snake.head.xcor() < -280:
+        snake.head.goto((snake.head.xcor() * -1), snake.head.ycor())
+    if snake.head.ycor() > 280 or snake.head.ycor() < -280:
+        snake.head.goto((snake.head.xcor(), (snake.head.ycor() * -1)))
+
     # Detect Collision with Food:
     if snake.head.distance(food) < 1:
         food.refresh()
         snake.extend()
         scoreboard.update_score()
-
-    # Detect Collision with Boundary:
-    if (snake.head.xcor() > 280 or snake.head.xcor() < -280
-            or snake.head.ycor() > 280 or snake.head.ycor() < -280):
-        scoreboard.game_over()
-        game_is_on = False
 
     # Detect Collision with Body:
     for segment in snake.segments[1:]:
