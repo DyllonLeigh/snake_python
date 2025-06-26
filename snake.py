@@ -11,7 +11,6 @@ move_complete = False
 
 class Snake:
     def __init__(self):
-        self.score = 0
         self.segments = []
         self.create_snake()
         self.head = self.segments[0]
@@ -19,6 +18,12 @@ class Snake:
     def create_snake(self):
         for position in STARTING_POSITIONS:
             self.add_segment(position)
+
+    def reset_snake(self):
+        for seg in self.segments:
+            seg.color("black")
+            del seg
+        self.__init__()
 
     def add_segment(self, position):
         new_segment = Turtle("square")
